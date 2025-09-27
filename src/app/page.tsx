@@ -1,6 +1,5 @@
 import Banner from "../components/organisms/Banner";
 import CategorySectionHome from "../components/organisms/CategorySectionHome";
-import Header from "../components/organisms/Header";
 import SupportSection from "../components/organisms/SupportSection";
 import TopProductCarousel from "../components/organisms/TopProductCarousel";
 import WhyChooseUs from "../components/organisms/WhyChooseUs";

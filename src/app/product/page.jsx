@@ -1,12 +1,12 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import TopProductCard from "../../components/atoms/TopProductCard";
 import { products } from "../data/allproducts";
 import { productCategories } from "../data/productCategories";
 import Whatsapp from "../../components/molecules/Whatsapp";
 
-export default function Products() {
+function ProductsContent() {
     const searchParams = useSearchParams();
     const categoryParam = searchParams.get('category');
     const [filteredProducts, setFilteredProducts] = useState(products);
@@ -33,9 +33,9 @@ export default function Products() {
         const filtered = products.filter(product =>
             product.category.toLowerCase() === categoryName.toLowerCase()
         );
- 
+
         setFilteredProducts(filtered);
-     
+
     };
 
     // Handle category filter click
@@ -130,6 +130,14 @@ export default function Products() {
                     position="bottom-right"
                   />
         </>
+    );
+}
+
+export default function Products() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <ProductsContent />
+        </Suspense>
     );
 }
 
