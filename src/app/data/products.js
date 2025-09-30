@@ -3,7 +3,7 @@ export const products = [
 // ------------------------------- Servo Stabilizer ----------------------------------------------------------------
 //Single Phase Servo Stabilizer 5 KVA
     {
-    id: 'ss1',
+    id: 's1',
     name: 'Single Phase Servo Stabilizer 5KVA',
     price: "25000", // Price not listed — you can add once known
     image: '/assets/images/ServoVoltageStabilizer/1PhaseStabilizerFront.png', // Replace with actual image path
@@ -60,7 +60,7 @@ export const products = [
   },
   //Single Phase Servo Stabilizer 10KVA
   {
-    id: 'ss2',
+    id: 's2',
     name: 'Single Phase Servo Stabilizer 7.5KVA, 10KVA',
     price: "25000", // Price not listed — you can add once known
     image: '/assets/images/ServoVoltageStabilizer/10KVAStabilizerFront.jpeg', // Replace with actual image path
@@ -119,7 +119,7 @@ export const products = [
    //Three Phase Servo Stabilizer air cooled
   {
    
-    id: 'tss1',
+    id: 's3',
     name: 'Three Phase Servo Stabilizer',
     price: "30000 (Starts from)", // You can update this later
     image: '/assets/images/ServoVoltageStabilizer/30KVAStabilizerFront.jpeg',
@@ -198,7 +198,7 @@ export const products = [
   },
   //Oil-Cooled Three Phase Servo Stabilizer
    {
-    id: 'ocs1',
+    id: 's4',
     name: 'Oil-Cooled Three Phase Servo Stabilizer',
     price: "50000 (Starts from)", // Add price when available
     image: '/assets/images/ServoVoltageStabilizer/OilCooled.png',
@@ -279,7 +279,7 @@ export const products = [
   //jindal-avc
   {
   
-    id: 'j1',
+    id: 's5',
     name: 'Jindal Automatic Voltage Controller (AVC)',
     price: "Upon Request", // Add when available
     image: '/assets/images/ServoVoltageStabilizer/JindalAVC.png',
@@ -351,7 +351,7 @@ export const products = [
 //-----------------------------------------------------UPS Systems-----------------------------------------------------
   //High Frequency Online UPS
 {
-  "id": "hfuls1",
+  "id": "u3",
   "name": "High Frequency Online UPS",
   "price": " Upon Request",
   "image": "/assets/images/ups/HighFreqOnlineUps.png",
@@ -442,7 +442,7 @@ export const products = [
 
 //Line Interactive UPS Systems
 {
-  "id": "ups1",
+  "id": "u1",
   "name": "Line Interactive UPS",
   "price": " Upon Request", 
   "image": "/assets/images/ups/lineInteractive.jpeg",
@@ -532,7 +532,7 @@ export const products = [
 
 //Online UPS Systems
 {
-  "id": "onlineups1",
+  "id": "u2",
   "name": "True Online UPS",
   "price": " Upon Request",
   "image": "/assets/images/UPS/OnlineUPS.png",
@@ -616,7 +616,7 @@ export const products = [
 //-------------------CVT-------------------------------
   //Constant Voltage Transformer
   {
-    id: 'cvt1',
+    id: 'cv1',
     name: 'Constant Voltage Transformer (CVT)',
     price: "20000", // Add price when available
     image: '/assets/images/cvt/cvt_front.jpeg',
@@ -697,7 +697,7 @@ export const products = [
     //AutoCut Stabilizer
   {
     //AutoCut Stabilizer
-  "id": "autocut1",
+  "id": "d2",
   "name": "Autocut Stabilizer",
   "price": " 5000 (Starts from)", // Add price when availabl
   "image": "/assets/images/DigitalVoltageStabilizer/AutoCut.jpeg",
@@ -759,7 +759,7 @@ export const products = [
 },
   //Digital Voltage Stabilizer
 {
-  "id": "dvs1",
+  "id": "d1",
   "name": "Digital Voltage Stabilizer",
   "price": " 3000 (Starts from)", // Add price when available
   "image": "/assets/images/DigitalVoltageStabilizer/DigitalStabilizerFront.jpeg",
@@ -819,7 +819,7 @@ export const products = [
 },
 //Smart Digital Voltage Stabilizer
 {
-  "id": "dvs1",
+  "id": "d3",
   "name": "Smart Digital Voltage Stabilizer",
   "price": "8000 (Starts from)",
   "image": "/assets/images/DigitalVoltageStabilizer/DigitalStabilizerFront.jpeg",
@@ -908,7 +908,7 @@ export const products = [
 //--------------------------------------Digital Step Stabilizer--------------------------------------
 //Wall Mount Regular
 {
-  "id": "wmstb2",
+  "id": "ds2",
   "name": "Wall Mount Regular Stabilizer",
   "price": " 2500 (Starts from)", // Add price when available
   "image": "/assets/images/DigitalStepStabilizer/WallMountRegular.jpeg",
@@ -986,7 +986,7 @@ export const products = [
 
 //Wall Mount Premium 
 {
-  "id": "wmstb1",
+  "id": "ds1",
   "name": "Wall Mount Premium Stabilizer",
   "price": " 1500 (Starts from)", // Add price when available
   "image": "/assets/images/DigitalStepStabilizer/WallMountPremium.png",
@@ -1068,7 +1068,7 @@ export const products = [
 //-----------------Battery Charger-------------------------------------------
 //SMPS Battery Charger
 {
-  "id": "bcharg1",
+  "id": "b1",
   "name": "SMPS Battery Charger",
   "price": " Upon Request",
   "image":'/assets/images/BatteryCharger/BatteryCharger.png',
@@ -1131,7 +1131,7 @@ export const products = [
 //-------------------------------Converter----------------------------------
 
 {
-  "id": "conv110v1",
+  "id": "c1",
   "name": "110 Volts Converter",
   "price": " 2000 (Starts from)", // Add price when available
   "image": "/assets/images/Converter/110VoltsConverter.png",
@@ -1213,7 +1213,7 @@ export const products = [
 //--------------------------------Controller----------------------------------
 //Servo Stabilizer Controller
 {
-  "id": "srvctrl1",
+  "id": "dc1",
   "name": "Servo Stabilizer Controller",
   "price": "2000",
   "image": "/assets/images/Controller/ServoStabilizerController.png",
@@ -1268,7 +1268,7 @@ export const products = [
 },
 //Step Stabilizer Controller
 {
-  "id": "stepctrl1",
+  "id": "dc2",
   "name": "Step Stabilizer Controller",
   "price": "750",
   "image": "/assets/images/Controller/StepStabilizerController.png",

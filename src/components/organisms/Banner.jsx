@@ -77,8 +77,8 @@ export default function Banner() {
     }, [nextSlide]);
 
     return (
-        <div style={styles.bannerContainer}>
-            <div style={styles.bannerSlider}>
+        <div className="banner-container">
+            <div className="banner-slider">
                 {bannerImages.map((image, index) => (
                     <BannerImage
                         key={index}
@@ -107,53 +107,3 @@ export default function Banner() {
         </div>
     );
 }
-
-const styles = {
-    bannerContainer: {
-        position: 'relative',
-        width: '100%',
-        height: '500px',          // Reduced height (was calc height or 700px)
-        overflow: 'hidden',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-    },
-    bannerSlider: {
-        position: 'relative',
-        width: '100%',
-        height: '100%',
-    },
-    overlay: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.4)',
-        color: '#fff',
-        textAlign: 'center',
-        padding: '0 20px',
-    },
-    heading: {
-        fontSize: '3rem',
-        marginBottom: '1rem',
-        textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
-    },
-    subheading: {
-        fontSize: '1.5rem',
-        marginBottom: '2rem',
-        textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
-    },
-    ctaButton: {
-        padding: '12px 24px',
-        fontSize: '1.125rem',
-        backgroundColor: '#0066cc',
-        color: '#fff',
-        border: 'none',
-        borderRadius: '4px',
-        cursor: 'pointer',
-        transition: 'background-color 0.3s ease',
-    }
-};

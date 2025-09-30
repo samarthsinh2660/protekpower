@@ -27,24 +27,24 @@ export default function TopProductCarousel() {
     );
 
     return (
-        <section style={styles.section}>
-            <div style={styles.container}>
-                <div style={styles.header}>
-                    <h2 style={styles.heading}>Top Products</h2>
-                    <div style={styles.divider}></div>
-                    <p style={styles.subheading}>Our most popular power management solutions</p>
+        <section className="top-products-section">
+            <div className="top-products-container">
+                <div className="top-products-header">
+                    <h2 className="top-products-heading">Top Products</h2>
+                    <div className="top-products-divider"></div>
+                    <p className="top-products-subheading">Our most popular power management solutions</p>
                 </div>
 
-                <div style={styles.carouselContainer}>
+                <div className="top-products-carousel-container">
                     <CarouselArrow
                         direction="left"
                         onClick={prevPage}
                         disabled={currentPage === 0}
                     />
 
-                    <div style={styles.productsGrid} className="products-grid">
+                    <div className="top-products-grid products-grid">
                         {currentProducts.map(product => (
-                            <div key={product.id} style={styles.productWrapper}>
+                            <div key={product.id} className="top-products-wrapper">
                                 <TopProductCard product={product} />
                             </div>
                         ))}
@@ -57,15 +57,12 @@ export default function TopProductCarousel() {
                     />
                 </div>
 
-                <div style={styles.pagination}>
+                <div className="top-products-pagination">
                     {Array.from({ length: totalPages }).map((_, index) => (
                         <button
                             key={index}
-                            style={{
-                                ...styles.paginationDot,
-                                backgroundColor: currentPage === index ? '#0066cc' : '#ccc'
-                            }}
                             onClick={() => setCurrentPage(index)}
+                            className={`top-products-pagination-dot ${currentPage === index ? 'active' : ''}`}
                             aria-label={`Go to page ${index + 1}`}
                         />
                     ))}
@@ -74,66 +71,3 @@ export default function TopProductCarousel() {
         </section>
     );
 }
-
-const styles = {
-    section: {
-        padding: '60px 0',
-        backgroundColor: '#f8f9fa',
-    },
-    container: {
-        maxWidth: '1200px',
-        margin: '0 auto',
-        padding: '0 20px',
-    },
-    header: {
-        marginBottom: '40px',
-    },
-    heading: {
-        textAlign: 'center',
-        fontSize: '2rem',
-        margin: '0 0 10px 0',
-        color: '#333',
-    },
-    divider: {
-        width: '60px',
-        height: '3px',
-        margin: '0 auto 20px',
-        backgroundColor: '#0066cc',
-    },
-    subheading: {
-        textAlign: 'center',
-        fontSize: '1.1rem',
-        maxWidth: '700px',
-        margin: '0 auto',
-        color: '#666',
-    },
-    carouselContainer: {
-        position: 'relative',
-        marginBottom: '20px',
-        padding: '10px 0',
-    },
-    productsGrid: {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        gap: '30px',
-        padding: '0 30px',
-    },
-    productWrapper: {
-        display: 'flex',
-        justifyContent: 'center',
-    },
-    pagination: {
-        display: 'flex',
-        justifyContent: 'center',
-        gap: '8px',
-        marginTop: '30px',
-    },
-    paginationDot: {
-        width: '10px',
-        height: '10px',
-        borderRadius: '50%',
-        border: 'none',
-        padding: 0,
-        cursor: 'pointer',
-    },
-};

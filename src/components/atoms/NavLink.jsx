@@ -1,11 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
 
-export default function NavLink({ to, children }) {
+export default function NavLink({ to, children, onClick, style }) {
     return (
         <Link
             href={to}
-            style={styles.link}
+            style={{...styles.link, ...style}}
+            onClick={onClick}
         >
             {children}
         </Link>

@@ -5,6 +5,8 @@ import NavBar from '../molecules/NavBar';
 
 export default function Header() {
     const [scrolled, setScrolled] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
     useEffect(() => {
         const handleScroll = () => {
             const isScrolled = window.scrollY > 20;
@@ -19,6 +21,10 @@ export default function Header() {
         };
     }, [scrolled]);
 
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
     return (
         <header style={{
             ...styles.header,
@@ -27,8 +33,24 @@ export default function Header() {
         }}>
             <div style={styles.container}>
                 <Logo />
-                <NavBar />
+                <div className="nav-container">
+                    <NavBar />
+                </div>
+                <button
+                    className="hamburger-menu"
+                    onClick={toggleMobileMenu}
+                    aria-label="Toggle mobile menu"
+                >
+                    <span className="hamburger-line"></span>
+                    <span className="hamburger-line"></span>
+                    <span className="hamburger-line"></span>
+                </button>
             </div>
+            {isMobileMenuOpen && (
+                <div className="mobile-menu">
+                    <NavBar mobile={true} onItemClick={() => setIsMobileMenuOpen(false)} />
+                </div>
+            )}
         </header>
     );
 }
@@ -37,7 +59,7 @@ const styles = {
     header: {
         position: 'sticky',
         top: 0,
-        backgroundColor: '#fff', //blue color
+        backgroundColor: '#fff',
         transition: 'all 0.3s ease',
         zIndex: 1000,
     },
@@ -49,5 +71,5 @@ const styles = {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-    }
+    },
 };

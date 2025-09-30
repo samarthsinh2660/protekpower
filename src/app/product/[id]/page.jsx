@@ -8,7 +8,7 @@ import ProductSpecs from '../../../components/molecules/ProductSpecs';
 import WarrantyInfo from '../../../components/molecules/WarrantyInfo';
 import ProductReviews from '../../../components/organisms/ProductReview';
 import RelatedProducts from '../../../components/organisms/RelatedProducts';
-import { products } from '../../data/allproducts';
+import { products } from '../../data/products';
 import Whatsapp from '../../../components/molecules/Whatsapp';
 
 export default function ProductDetail() {
@@ -32,73 +32,61 @@ export default function ProductDetail() {
     }, [id]);
 
     if (!product) {
-        return <div style={styles.notFound}>Product not found</div>;
+        return <div className="product-not-found">Product not found</div>;
     }
 
     return (
         <>
-            <div style={styles.container}>
-                <div style={styles.breadcrumbs}>
-                    <Link href="/" style={styles.breadcrumbLink}>Home</Link>
-                    <span style={styles.breadcrumbSeparator}>›</span>
-                    <Link href="/product" style={styles.breadcrumbLink}>Products</Link>
-                    <span style={styles.breadcrumbSeparator}>›</span>
-                    <Link href={`/product?category=${product.category.toLowerCase()}`} style={styles.breadcrumbLink}>
+            <div className="product-container">
+                <div className="product-breadcrumbs">
+                    <Link href="/" className="breadcrumb-link">Home</Link>
+                    <span className="breadcrumb-separator">›</span>
+                    <Link href="/product" className="breadcrumb-link">Products</Link>
+                    <span className="breadcrumb-separator">›</span>
+                    <Link href={`/product?category=${product.category.toLowerCase()}`} className="breadcrumb-link">
                         {product.category}
                     </Link>
-                    <span style={styles.breadcrumbSeparator}>›</span>
-                    <span style={styles.currentPage}>{product.name}</span>
+                    <span className="breadcrumb-separator">›</span>
+                    <span className="current-page">{product.name}</span>
                 </div>
 
-                <div style={styles.productSection}>
-                    <div style={styles.productContainer}>
+                <div className="product-section">
+                    <div className="product-content">
                         <ProductGallery images={product.images || []} product={product} />
 
-                        <div style={styles.productInfo}>
-                            <h1 style={styles.productTitle}>{product.name}</h1>
-                            <p style={styles.productCategory}>{product.category}</p>
-                            <p style={styles.productDescription}>{product.description}</p>
+                        <div className="product-info">
+                            <h1 className="product-title">{product.name}</h1>
+                            <p className="product-category">{product.category}</p>
+                            <p className="product-description">{product.description}</p>
 
-                            <div style={styles.tabsHeader}>
+                            <div className="tabs-header">
                                 <button
                                     onClick={() => setActiveTab('description')}
-                                    style={{
-                                        ...styles.tabButton,
-                                        ...(activeTab === 'description' ? styles.activeTab : {})
-                                    }}
+                                    className={`tab-button ${activeTab === 'description' ? 'active-tab' : ''}`}
                                 >
                                     Description
                                 </button>
                                 <button
                                     onClick={() => setActiveTab('specifications')}
-                                    style={{
-                                        ...styles.tabButton,
-                                        ...(activeTab === 'specifications' ? styles.activeTab : {})
-                                    }}
+                                    className={`tab-button ${activeTab === 'specifications' ? 'active-tab' : ''}`}
                                 >
                                     Specifications
                                 </button>
                                 <button
                                     onClick={() => setActiveTab('warranty')}
-                                    style={{
-                                        ...styles.tabButton,
-                                        ...(activeTab === 'warranty' ? styles.activeTab : {})
-                                    }}
+                                    className={`tab-button ${activeTab === 'warranty' ? 'active-tab' : ''}`}
                                 >
                                     Warranty
                                 </button>
                                 <button
                                     onClick={() => setActiveTab('reviews')}
-                                    style={{
-                                        ...styles.tabButton,
-                                        ...(activeTab === 'reviews' ? styles.activeTab : {})
-                                    }}
+                                    className={`tab-button ${activeTab === 'reviews' ? 'active-tab' : ''}`}
                                 >
                                     Reviews
                                 </button>
                             </div>
 
-                            <div style={styles.tabContent}>
+                            <div className="tab-content">
                                 {activeTab === 'description' && <ProductOverview product={product} />}
                                 {activeTab === 'specifications' && <ProductSpecs specifications={product.specifications || {}} />}
                                 {activeTab === 'warranty' && <WarrantyInfo warranty={product.warranty || "1 Year"} />}
@@ -120,88 +108,3 @@ export default function ProductDetail() {
         </>
     );
 }
-
-const styles = {
-    container: {
-        maxWidth: '1200px',
-        margin: '0 auto',
-        padding: '40px 20px',
-    },
-    breadcrumbs: {
-        display: 'flex',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-        fontSize: '0.9rem',
-        marginBottom: '30px',
-    },
-    breadcrumbLink: {
-        color: '#0066cc',
-        textDecoration: 'none',
-    },
-    breadcrumbSeparator: {
-        margin: '0 8px',
-        color: '#999',
-    },
-    currentPage: {
-        color: '#666',
-    },
-    productSection: {
-        marginBottom: '60px',
-    },
-    productContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '40px',
-        marginBottom: '40px',
-    },
-    productInfo: {
-        flex: 1,
-    },
-    productTitle: {
-        fontSize: '2.5rem',
-        marginBottom: '10px',
-        color: '#333',
-    },
-    productCategory: {
-        fontSize: '1.1rem',
-        color: '#666',
-        marginBottom: '20px',
-    },
-    productDescription: {
-        fontSize: '1.1rem',
-        lineHeight: '1.6',
-        color: '#444',
-        marginBottom: '30px',
-    },
-    tabsHeader: {
-        display: 'flex',
-        borderBottom: '1px solid #ddd',
-        marginBottom: '30px',
-    },
-    tabButton: {
-        padding: '12px 24px',
-        backgroundColor: 'transparent',
-        border: 'none',
-        borderBottomWidth: '3px',
-        borderBottomStyle: 'solid',
-        borderBottomColor: 'transparent',
-        fontSize: '1rem',
-        color: '#666',
-        cursor: 'pointer',
-        transition: 'all 0.2s ease',
-    },
-    activeTab: {
-        color: '#0066cc',
-        borderBottomColor: '#0066cc',
-        fontWeight: '500',
-    },
-    tabContent: {
-        minHeight: '300px',
-    },
-    notFound: {
-        textAlign: 'center',
-        padding: '100px 0',
-        color: '#666',
-        fontSize: '1.4rem',
-    },
-};

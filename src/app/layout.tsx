@@ -20,10 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <body className="layout-body">
+        <div className="layout-container">
           <Header />
-          <main style={{ flex: 1 }}>{children}</main>
+          <main className="layout-main">{children}</main>
           <Footer />
         </div>
       </body>
