@@ -31,9 +31,8 @@ const styles = {
         textDecoration: 'none',
         height: '100%',
         width: '100%',
-        // Set fixed dimensions
-        maxWidth: '280px',
-        margin: '0 auto',
+        // Allow cards to expand height for longer titles
+        minHeight: '320px',
     },
     imageWrapper: {
         position: 'relative',
@@ -75,19 +74,17 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         flexGrow: 1,
-        height: '100px', // Fixed height
+        // Remove fixed height to allow expansion
+        minHeight: '80px',
     },
     title: {
         margin: '0 0 8px 0',
         fontSize: '1rem',
         fontWeight: 'bold',
         color: '#333',
-        // Ensure text doesn't overflow
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        display: '-webkit-box',
-        WebkitLineClamp: 2,
-        WebkitBoxOrient: 'vertical',
+        // Allow full title display with multiple lines
+        lineHeight: '1.4',
+        wordWrap: 'break-word',
     },
     price: {
         fontWeight: 'bold',

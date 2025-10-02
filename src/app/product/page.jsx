@@ -198,7 +198,7 @@ const styles = {
     productsGrid: {
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-        gap: '20px',
+        gap: '15px',
     },
     productWrapper: {
         display: 'flex',

@@ -26,7 +26,7 @@ export default function ProductOverview({ product }) {
                     {product.isBestseller && <Badge type="bestseller" text="Bestseller" />}
                     {product.isOnSale && <Badge type="sale" text="Sale" />}
                 </div>
-                <h1 style={styles.title}>{product.name} 🛒</h1>
+                <h1 style={styles.title}>{product.name}</h1>
                 <div style={styles.meta}>
                     <div style={styles.rating}>
                         <Rating value={product.rating} count={product.reviewCount} />
@@ -39,13 +39,13 @@ export default function ProductOverview({ product }) {
                 {product.originalPrice && product.originalPrice > product.price ? (
                     <div style={styles.pricingContainer}>
                         <span style={styles.originalPrice}>₹{product.originalPrice.toLocaleString('en-IN')}</span>
-                        <span style={styles.price}>₹{product.price.toLocaleString('en-IN')} 💰</span>
+                        <span style={styles.price}>₹{product.price.toLocaleString('en-IN')}</span>
                         <span style={styles.discount}>
                             🔥 Save {Math.round((1 - product.price / product.originalPrice) * 100)}%
                         </span>
                     </div>
                 ) : (
-                    <span style={styles.price}>₹{product.price.toLocaleString('en-IN')} 💰</span>
+                    <span style={styles.price}>₹{product.price.toLocaleString('en-IN')}</span>
                 )}
                 <div style={styles.tax}>✅ Inclusive of all taxes</div>
             </div>

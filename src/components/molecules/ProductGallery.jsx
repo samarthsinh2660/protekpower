@@ -76,18 +76,18 @@ const styles = {
         gap: '12px',
         overflowX: 'auto',
         paddingBottom: '8px',
-        '::-webkit-scrollbar': {
+        '::WebkitScrollbar': {
             height: '6px',
         },
-        '::-webkit-scrollbar-track': {
+        '::WebkitScrollbarTrack': {
             background: '#f1f1f1',
             borderRadius: '10px',
         },
-        '::-webkit-scrollbar-thumb': {
+        '::WebkitScrollbarThumb': {
             background: '#cacaca',
             borderRadius: '10px',
         },
-        '::-webkit-scrollbar-thumb:hover': {
+        '::WebkitScrollbarThumb:hover': {
             background: '#aaaaaa',
         },
     },
