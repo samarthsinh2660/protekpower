@@ -48,9 +48,17 @@ export default function About() {
                                     <span className="about-icon">🚀</span>
                                 </div>
                                 <h2 className="about-box-title">Our Mission</h2>
-                                <p className="about-box-text">
-                                    Our teams of researchers have made path breaking innovations in the field of industrial automation and thus have provided us with competitive advantage over our rivals.
-                                </p>
+                                  <div className="about-box-text">
+                                    We deliver superior-quality power-management products and services — including servo
+                                    voltage stabilisers, digital stabilisers, CVTs, inverters, UPS systems and battery
+                                    chargers — built for critical applications. We commit to:
+                                    <ul>
+                                        <li>Ensuring every installation runs uninterrupted and with optimal efficiency</li>
+                                        <li>Partnering with clients as a solution-provider (not just a supplier)</li>
+                                        <li>Continuously innovating to meet evolving challenges in power quality</li>
+                                        <li>Acting responsibly toward sustainability and the welfare of our stakeholders</li>
+                                    </ul>
+                                    </div>
                             </div>
 
                             <div className="about-vision-box">
@@ -131,7 +139,7 @@ export default function About() {
                             </div>
 
                             <div className="about-stat-box">
-                                <div className="about-stat-number">200+</div>
+                                <div className="about-stat-number">10+</div>
                                 <div className="about-stat-label">Service Centers</div>
                             </div>
 
@@ -141,23 +149,7 @@ export default function About() {
                             </div>
                         </div>
 
-                        <div className="about-certifications-container">
-                            <h3 className="about-certifications-title">Our Certifications</h3>
-                            <div className="about-certifications-list">
-                                <div className="about-certification-item">
-                                    <span className="about-cert-icon">✓</span> D.G.Q.A. Approved for Defense Installations
-                                </div>
-                                <div className="about-certification-item">
-                                    <span className="about-cert-icon">✓</span> T.A.C. Certified (Tariff Advisory Committee)
-                                </div>
-                                <div className="about-certification-item">
-                                    <span className="about-cert-icon">✓</span> IS 2189 Standards Compliance
-                                </div>
-                                <div className="about-certification-item">
-                                    <span className="about-cert-icon">✓</span> ISO 9001:2015 Certified
-                                </div>
-                            </div>
-                        </div>
+                       
                     </div>
                 </section>
 
