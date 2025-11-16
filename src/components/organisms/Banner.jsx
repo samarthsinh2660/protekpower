@@ -10,26 +10,26 @@ export default function Banner() {
     const intervalRef = useRef(null);
 
     const bannerImages = [
-        {
-            src: '/assets/images/banner1.jpg',
-            alt: 'Power Management Solutions'
-        },
-        {
-            src: '/assets/images/banner2.jpg',
-            alt: 'UPS Systems'
-        },
+        // {
+        //     src: '/assets/images/banner1.jpg',
+        //     alt: 'Power Management Solutions'
+        // },
+        // {
+        //     src: '/assets/images/banner2.jpg',
+        //     alt: 'UPS Systems'
+        // },
         {
             src: '/assets/images/banner3.jpg',
             alt: 'Power Distribution Units'
         },
-        {
-            src: '/assets/images/banner4.jpg',
-            alt: 'Renewable Energy Solutions'
-        },
-        {
-            src: '/assets/images/banner5.jpg',
-            alt: 'Energy Storage Systems'
-        }
+        // {
+        //     src: '/assets/images/banner4.jpg',
+        //     alt: 'Renewable Energy Solutions'
+        // },
+        // {
+        //     src: '/assets/images/banner5.jpg',
+        //     alt: 'Energy Storage Systems'
+        // }
     ];
 
     // Add transition state to prevent rapid clicks
