@@ -9,9 +9,9 @@ export default function WhyChooseUs() {
             label: 'Satisfied Customers'
         },
         {
-            icon: '🏆',
-            number: '12',
-            label: 'Industry Awards'
+            icon: '📍',
+            number: '6+',
+            label: 'States covered'
         },
         {
             icon: '📦',

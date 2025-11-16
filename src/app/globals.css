@@ -981,7 +981,10 @@ nav a:hover::after {
   padding: 80px 20px;
   text-align: center;
 }
-
+.bullet-list {
+    list-style: disc !important;
+    margin-left: 20px;
+}
 .about-hero-content {
   max-width: 800px;
   margin: 0 auto;

@@ -52,7 +52,7 @@ export default function About() {
                                     We deliver superior-quality power-management products and services — including servo
                                     voltage stabilisers, digital stabilisers, CVTs, inverters, UPS systems and battery
                                     chargers — built for critical applications. We commit to:
-                                    <ul>
+                                    <ul className="bullet-list">
                                         <li>Ensuring every installation runs uninterrupted and with optimal efficiency</li>
                                         <li>Partnering with clients as a solution-provider (not just a supplier)</li>
                                         <li>Continuously innovating to meet evolving challenges in power quality</li>
@@ -67,7 +67,7 @@ export default function About() {
                                 </div>
                                 <h2 className="about-box-title">Our Vision</h2>
                                 <p className="about-box-text">
-                                    Our products are approved by D.G.Q.A. which certifies quality of products which are to be used in defense installations and by T A C (Tariff Advisory Committee) which is a leading quality assurance agency. Apart from that our fire alarms are made as per IS 2189 standards which further enhances our credibility.
+                                   To be the trusted global leader in power-conditioning solutions — delivering safe, uninterrupted and energy-efficient power to critical applications everywhere, by combining innovation, reliability and deep customer partnerships.
                                 </p>
                             </div>
                         </div>
@@ -139,7 +139,7 @@ export default function About() {
                             </div>
 
                             <div className="about-stat-box">
-                                <div className="about-stat-number">10+</div>
+                                <div className="about-stat-number">5+</div>
                                 <div className="about-stat-label">Service Centers</div>
                             </div>
 
