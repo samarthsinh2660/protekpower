@@ -14,12 +14,12 @@ export default function Banner() {
         //     src: '/assets/images/banner1.jpg',
         //     alt: 'Power Management Solutions'
         // },
-        // {
-        //     src: '/assets/images/banner2.jpg',
-        //     alt: 'UPS Systems'
-        // },
         {
-            src: '/assets/images/banner3.jpg',
+            src: '/assets/images/banner2.jpg',
+            alt: 'UPS Systems'
+        },
+        {
+            src: '/assets/images/banner3.png',
             alt: 'Power Distribution Units'
         },
         // {
