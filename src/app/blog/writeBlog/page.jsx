@@ -31,16 +31,48 @@ export default function WriteBlog() {
   const addTextSection = () => setSections([...sections, { type: 'text', content: '' }]);
   const addImageSection = () => setSections([...sections, { type: 'image', src: '' }]);
 
-  const handleImageUpload = async (idx, file) => {
-    const storageRef = ref(storage, `blog_images/${file.name}`);
+  // const handleImageUpload = async (idx, file) => {
+  //   const storageRef = ref(storage, `blog_images/${file.name}`);
     
-    await uploadBytes(storageRef, file);
-    const url = await getDownloadURL(storageRef);
+  //   await uploadBytes(storageRef, file);
+  //   const url = await getDownloadURL(storageRef);
     
+  //   const updated = [...sections];
+  //   updated[idx].src = url;
+  //   setSections(updated);
+  // };
+
+const handleImageUpload = async (idx, file) => {
+  if (!file) return;
+
+  try {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "blog_unsigned"); // from Step 2
+
+    const response = await fetch(
+      "https://api.cloudinary.com/v1_1/dq9zjdwfy/image/upload",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+
+    const data = await response.json();
+
+    console.log("Cloudinary URL:", data.secure_url);
+
     const updated = [...sections];
-    updated[idx].src = url;
+    updated[idx].src = data.secure_url; // store Cloudinary URL
     setSections(updated);
-  };
+
+  } catch (error) {
+    console.error("Upload failed:", error);
+    alert("Image upload failed");
+  }
+};
+
+
 
   const handleImageURL = (idx, url) => {
     const updated = [...sections];
@@ -62,12 +94,12 @@ export default function WriteBlog() {
         date: new Date().toLocaleDateString(),
         sections
       };
-
+      console.log(blogData)
       const postsCollection = collection(db, 'posts');
       await addDoc(postsCollection, blogData);
 
       alert('Blog saved successfully!');
-      router.push('/blog');
+      // router.push('/blog');
     } catch (error) {
       console.error('Error saving blog:', error);
       alert('There was an error saving the blog. Please try again.');

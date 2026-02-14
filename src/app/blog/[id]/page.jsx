@@ -80,12 +80,18 @@ export default function BlogDetail() {
                                 ) : section.type === 'image' ? (
                                     <div style={styles.inlineImageContainer} key={idx}>
                                         <img
-                                            src={section.src && section.src.startsWith('http') ? section.src : '/assets/images/blogs/home-power.jpg'}
+                                            src={section.src && section.src.startsWith('http') ? section.src : '/assets/images/banner2.jpg'}
                                             alt="Blog Visual"
                                             style={styles.inlineImage}
-                                            onError={(e) => {
-                                                e.target.src = '/assets/images/banner1.jpg';
-                                            }}
+                               onError={(e) => {
+                                    if (!e.target.dataset.fallback) {
+                                        e.target.dataset.fallback = 'true';   // mark fallback used
+                                        e.target.src = '/assets/images/logo.png';
+                                    } else {
+                                        e.target.onerror = null;              // stop further attempts
+                                        e.target.style.display = 'none';      // hide image
+                                    }
+                                }}
                                         />
                                     </div>
                                 ) : null
@@ -108,8 +114,14 @@ export default function BlogDetail() {
                             alt="Author"
                             style={styles.authorImage}
                             onError={(e) => {
-                                e.target.src = '/assets/images/logo.png'; // Fallback to logo
-                            }}
+                            if (!e.target.dataset.fallback) {
+                                e.target.dataset.fallback = 'true';   // mark fallback used
+                                e.target.src = '/assets/images/logo.png';
+                            } else {
+                                e.target.onerror = null;              // stop further attempts
+                                e.target.style.display = 'none';      // hide image
+                            }
+                        }}
                         />
                         <div>
                             <h4 style={styles.authorName}>By Protek Power Team</h4>
@@ -168,12 +180,18 @@ export default function BlogDetail() {
                                                     ? item.sections.find((s) => s.type === 'image')?.src
                                                     : item.content && item.image && item.image.startsWith('http')
                                                         ? item.image
-                                                        : '/assets/images/blogs/home-power.jpg'
+                                                        : '/assets/images/banner2.jpg'
                                             }
                                             alt="Blog"
                                             style={styles.recommendedImage}
-                                            onError={(e) => {
-                                                e.target.src = '/assets/images/banner1.jpg';
+                                              onError={(e) => {
+                                                if (!e.target.dataset.fallback) {
+                                                    e.target.dataset.fallback = 'true';   // mark fallback used
+                                                    e.target.src = '/assets/images/logo.png';
+                                                } else {
+                                                    e.target.onerror = null;              // stop further attempts
+                                                    e.target.style.display = 'none';      // hide image
+                                                }
                                             }}
                                         />
                                         <p style={styles.recommendedText}>{item.title || item.heading || 'Untitled'}</p>
@@ -206,14 +224,20 @@ export default function BlogDetail() {
                                         ? item.sections.find((s) => s.type === 'image')?.src
                                         : item.content && item.image && item.image.startsWith('http')
                                             ? item.image
-                                            : '/assets/images/blogs/home-power.jpg'
+                                            : '/assets/images/banner2.jpg'
                                 }
                                 alt="Blog"
                                 style={styles.sidebarImage}
-                                onError={(e) => {
-                                    e.target.src = '/assets/images/banner1.jpg';
-                                }}
-                            />
+                               onError={(e) => {
+                                if (!e.target.dataset.fallback) {
+                                    e.target.dataset.fallback = 'true';   // mark fallback used
+                                    e.target.src = '/assets/images/logo.png';
+                                } else {
+                                    e.target.onerror = null;              // stop further attempts
+                                    e.target.style.display = 'none';      // hide image
+                                }
+                            }}
+                                                        />
                             <span>{item.title || item.heading || 'Untitled'}</span>
                         </Link>
                     ))}

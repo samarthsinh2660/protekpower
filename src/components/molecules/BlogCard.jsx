@@ -35,13 +35,18 @@ export default function BlogCard({ blog }) {
         <div style={styles.card}>
             <div style={styles.imageContainer}>
                 <img
-                    src={firstImage && firstImage.src && firstImage.src.startsWith('http') ? firstImage.src : '/assets/images/blogs/home-power.jpg'}
+                    src={firstImage && firstImage.src && firstImage.src.startsWith('http') ? firstImage.src : '/assets/images/banner2.jpg'}
                     alt="Blog"
                     style={styles.image}
-                    onError={(e) => {
-                        console.log('Image failed to load:', e.target.src);
-                        e.target.src = '/assets/images/banner1.jpg'; // Final fallback
-                    }}
+                     onError={(e) => {
+                                    if (!e.target.dataset.fallback) {
+                                        e.target.dataset.fallback = 'true';   // mark fallback used
+                                        e.target.src = '/assets/images/logo.png';
+                                    } else {
+                                        e.target.onerror = null;              // stop further attempts
+                                        e.target.style.display = 'none';      // hide image
+                                    }
+                                }}
                 />
             </div>
             <div style={styles.content}>
