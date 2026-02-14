@@ -1068,12 +1068,12 @@ export const products = [
 {
   "id": "ds3",
   "name": "Digital Step Stabilizer",
-  "price": " 4000 (Starts from)", // Add price when available
+  "price": " 8000 (Starts from)", // Add price when available
   "image": "/assets/images/DigitalStepStabilizer/DigitalStepStabilizer3Front.jpeg",
   "category": "Digital Voltage Stabilizer",
   "slug": "digital-step-stabilizer3",
-  "description": "Premium wall-mount digital stabilizer with LED display, auto-reset, and precise voltage regulation.",
-  "fullDescription": "Pro_Tek's Wall Mount Premium Stabilizer is a digitally controlled voltage regulator designed for home and office appliances. Engineered for wall-mounted deployment, it combines advanced voltage sensing, front-panel LED for real-time voltage feedback, and seamless auto-reset after voltage normalization. The stabilizer offers wide input range compatibility and built-in protections against high/low voltage, overload, and surges. Ideal for refrigerators, air conditioners, LED TVs, and sensitive equipment that demand consistent voltage.",
+  "description": "Premium digital stabilizer with LED display, auto-reset, and precise voltage regulation.",
+  "fullDescription": "Pro_Tek's Premium Stabilizer is a digitally controlled voltage regulator designed for home and office appliances. Engineered for wall-mounted deployment, it combines advanced voltage sensing, front-panel LED for real-time voltage feedback, and seamless auto-reset after voltage normalization. The stabilizer offers wide input range compatibility and built-in protections against high/low voltage, short-circuit, and surges. Ideal for refrigerators, air conditioners, LED TVs, and sensitive equipment that demand consistent voltage.",
   "sku": "WMP-STB-PTK",
   "rating": 4.6,
   "reviewCount": 40,
@@ -1091,13 +1091,13 @@ export const products = [
     },
   ],
   "features": [
-    "Plastic ABS body with elegant finish",
-    "Wall-mount design for space-saving installation",
+    "Premium Metal body with elegant finish",
+    "Can be wall mounted on stand for space-saving installation",
     "Advanced microcontroller-based voltage regulation",
     "LED panel for input/output voltage and system status",
-    "Wide input voltage handling range (140V-290V, 170V-290V)",
+    "Wide input voltage handling range (180V-300V)",
     "Auto-cut off on unsafe voltage with auto-reset",
-    "Built-in protection against surges, spikes, overload",
+    "Built-in protection against surges, spikes, short-circuit by MCB",
     "Silent operation with relay switching at zero crossing of sine wave",
     "Elegant design suitable for home interiors"
   ],
@@ -1111,13 +1111,14 @@ export const products = [
   ],
   "specifications": {
     "Technology": "Digital microcontroller-based stabilization",
-    "Input Voltage Range": "140V-290V, 170V-290V",
+    "Input Voltage Range": "180V-300V",
     "Output Voltage": "230 V (Typical)",
     "Display": "Front-panel LED with voltage indicators",
-    "Protection": "High/low voltage cutoff, surge, overload, short circuit (By fuse)",
-    "Form Factor": "Wall-mount, compact body",
+    "Protection": "High/low voltage cutoff, surge, overload, short circuit (By MCB)",
+    "Form Factor": "Can be wall mounted via Stand, Compact body",
     "Cooling": "Natural air-cooled (fanless)",
-    "Reset Type": "Automatic reset after voltage normalization"
+    "Reset Type": "Automatic reset after voltage normalization",
+    "Input-Output Termination": "63A 3 way terminal block + 1 15A Plug at Output"
   },
   "warranty": {
     "period": "1-Year",
