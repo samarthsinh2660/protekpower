@@ -127,7 +127,7 @@ export const products = [
   {
     id: 'b1',
     name: 'SMPS Battery Charger',
-    price: 3000,
+    price: 2000,
     image: '/assets/images/BatteryCharger/BatteryCharger.png',
     category: 'Battery Chargers',
     slug: 'smps-battery-charger',
@@ -197,7 +197,7 @@ export const products = [
   {
     id: 'dc1',
     name: 'Servo Stabilizer Controller',
-    price: 2000,
+    price: 1200,
     image: '/assets/images/Controller/ServoStabilizerController.png',
     category: 'Digital Controller',
     slug: 'servo-stabilizer-controller',
@@ -206,7 +206,7 @@ export const products = [
     {
     id: 'dc2',
     name: 'Step Stabilizer Controller',
-    price: 2000,
+    price: 800,
     image: '/assets/images/Controller/StepStabilizerController.png',
     category: 'Digital Controller',
     slug: 'step-stabilizer-controller',

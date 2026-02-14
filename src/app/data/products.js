@@ -1155,7 +1155,7 @@ export const products = [
 {
   "id": "b1",
   "name": "SMPS Battery Charger",
-  "price": " Upon Request",
+  "price": "1300 (Starts from)",
   "image":'/assets/images/BatteryCharger/BatteryCharger.png',
   "category": "Battery Charger",
   "slug": "smps-battery-charger",
