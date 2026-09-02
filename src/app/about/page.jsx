@@ -1,6 +1,19 @@
 import React from 'react';
 import Whatsapp from "../../components/molecules/Whatsapp";
 
+export const metadata = {
+    title: "About Us — Power Management Manufacturer Since 1980",
+    description:
+        "Founded in 1980, Protek Power has grown from a small manufacturing unit into one of India's trusted power management solution providers, supplying servo stabilizers, CVTs, UPS systems and battery chargers nationwide.",
+    alternates: { canonical: "/about" },
+    openGraph: {
+        url: "/about",
+        title: "About Protek Power — Power Management Manufacturer Since 1980",
+        description:
+            "Four decades of experience in servo voltage stabilizers, CVTs, UPS systems and battery chargers for critical applications across India.",
+    },
+};
+
 export default function About() {
     return (
         <>
