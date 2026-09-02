@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import Image from 'next/image';
 import ProductImageZoom from '../atoms/ProductImageZoom';
 
 export default function ProductGallery({ images, product }) {
@@ -44,9 +45,12 @@ export default function ProductGallery({ images, product }) {
                                 ...(index === safeActiveImage ? styles.activeThumbnail : {})
                             }}
                         >
-                            <img
+                            <Image
                                 src={image.url}
                                 alt={image.alt}
+                                width={120}
+                                height={120}
+                                sizes="120px"
                                 style={styles.thumbnailImage}
                             />
                         </div>
@@ -106,7 +110,12 @@ const styles = {
     },
     thumbnail: {
         width: '20%',
-        height: '20%',
         objectFit: 'cover',
+    },
+    thumbnailImage: {
+        width: '100%',
+        height: 'auto',
+        objectFit: 'cover',
+        display: 'block',
     }
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function TopProductCard({ product }) {
     const { name, price, image, slug, category } = product;
@@ -7,7 +8,13 @@ export default function TopProductCard({ product }) {
     return (
         <Link href={`/product/${slug}`} style={styles.card} className="product-card">
             <div style={styles.imageWrapper}>
-                <img src={image} alt={name} style={styles.image} />
+                <Image
+                    src={image}
+                    alt={name}
+                    fill
+                    sizes="(max-width: 600px) 90vw, (max-width: 1024px) 45vw, 300px"
+                    style={styles.image}
+                />
                 <div style={styles.overlay}></div>
                 <div style={styles.category}>{category}</div>
             </div>
@@ -41,8 +48,6 @@ const styles = {
         overflow: 'hidden',
     },
     image: {
-    width: '100%',
-    height: '100%',
     objectFit: 'contain', // use 'contain' to preserve clarity
     display: 'block',
     },

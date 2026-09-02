@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import Button from '../atoms/Button';
 
@@ -9,7 +10,13 @@ export default function CategoryCard({ image, title, description, link, slug }) 
     return (
         <div style={styles.card} className="power-pulse">
             <div style={styles.imageContainer}>
-                <img src={image} alt={title} style={styles.image} />
+                <Image
+                    src={image}
+                    alt={title}
+                    fill
+                    sizes="(max-width: 600px) 90vw, (max-width: 1024px) 45vw, 340px"
+                    style={styles.image}
+                />
             </div>
             <div style={styles.content}>
                 <h3 style={styles.title}>{title}</h3>
@@ -38,6 +45,7 @@ const styles = {
         }
     },
     imageContainer: {
+        position: 'relative', // required so the fill image is bounded here
         width: '100%',
         height: '180px',
         overflow: 'hidden',
@@ -46,8 +54,6 @@ const styles = {
         justifyContent: 'center',
         },
     image: {
-        width: '100%',
-        height: 'auto',
         objectFit: 'contain',
         display: 'block',
         },

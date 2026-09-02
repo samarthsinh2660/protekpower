@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import Whatsapp from "../../components/molecules/Whatsapp";
 
 export const metadata = {
@@ -31,10 +32,14 @@ export default function About() {
                     <div className="about-container">
                         <div className="about-two-columns">
                             <div className="about-image-column">
-                                <img
+                                <Image
                                     src="/assets/images/company-building.jpg"
                                     alt="Protek Power Headquarters"
+                                    width={600}
+                                    height={352}
+                                    sizes="(max-width: 768px) 100vw, 600px"
                                     className="about-intro-image"
+                                    style={{ height: 'auto' }}
                                 />
                             </div>
                             <div className="about-text-column">

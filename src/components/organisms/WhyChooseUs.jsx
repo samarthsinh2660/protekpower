@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import MetricCard from '../atoms/MetricCard';
 
 export default function WhyChooseUs() {
@@ -42,8 +43,8 @@ export default function WhyChooseUs() {
                         <div style={styles.clientLogos}>
                             <div style={styles.logoTitle}>Trusted by:</div>
                             <div style={styles.logos}>
-                                <img src="/assets/images/indianoil.png" alt="Indian Oil" style={styles.logo} />
-                                <img src="/assets/images/hp.png" alt="Hindustan Petroleum" style={styles.logo} />
+                                <Image src="/assets/images/indianoil.png" alt="Indian Oil" width={40} height={40} style={styles.logo} />
+                                <Image src="/assets/images/hp.png" alt="Hindustan Petroleum" width={31} height={40} style={styles.logo} />
                             </div>
                         </div>
                     </div>
@@ -121,6 +122,7 @@ const styles = {
     },
     logo: {
         height: '40px',
+        width: 'auto',
         objectFit: 'contain',
     },
 };

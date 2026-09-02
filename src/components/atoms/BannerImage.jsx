@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 export default function BannerImage({ src, alt, isActive }) {
     const [animationClass, setAnimationClass] = useState('');
@@ -20,9 +21,15 @@ export default function BannerImage({ src, alt, isActive }) {
             transform: isActive ? 'translateX(0)' : 'translateX(100px)',
             zIndex: isActive ? 1 : 0
         }}>
-            <img
+            <Image
                 src={src}
                 alt={alt}
+                fill
+                // The banner is the largest element above the fold: load the
+                // first slide eagerly and let the rest lazy-load.
+                priority={isActive}
+                sizes="100vw"
+                quality={80}
                 style={{
                     ...styles.image,
                     transform: isActive ? 'scale(1.05)' : 'scale(1)'

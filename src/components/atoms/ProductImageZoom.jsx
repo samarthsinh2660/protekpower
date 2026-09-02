@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 export default function ProductImageZoom({ src, alt }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +32,13 @@ export default function ProductImageZoom({ src, alt }) {
                 onMouseMove={handleMouseMove}
                 title="Click to zoom"
             >
-                <img src={src} alt={alt} style={styles.image} />
+                <Image
+                    src={src}
+                    alt={alt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 600px"
+                    style={styles.image}
+                />
                 <div style={styles.zoomIcon}>🔍</div>
             </div>
 
@@ -39,9 +46,12 @@ export default function ProductImageZoom({ src, alt }) {
                 <div style={styles.zoomOverlay} onClick={handleCloseZoom}>
                     <div style={styles.zoomContainer}>
                         <div style={styles.zoomClose}>×</div>
-                        <img
+                        <Image
                             src={src}
                             alt={alt}
+                            fill
+                            sizes="80vw"
+                            quality={90}
                             style={{
                                 ...styles.zoomImage,
                                 objectPosition: `${position.x}% ${position.y}%`
@@ -68,8 +78,6 @@ const styles = {
         overflow: 'hidden',
     },
     image: {
-        width: '100%',
-        height: '100%',
         objectFit: 'cover',
         transition: 'transform 0.3s ease',
         ':hover': {
@@ -121,8 +129,6 @@ const styles = {
         zIndex: 1001,
     },
     zoomImage: {
-        width: '100%',
-        height: '100%',
         objectFit: 'contain',
     },
 };
