@@ -1,6 +1,8 @@
 import React from 'react';
 
 export default function Rating({ value, count }) {
+    const hasRating = typeof value === 'number' && value > 0;
+
     // Convert rating value to stars
     const renderStars = (rating) => {
         const stars = [];
@@ -23,12 +25,26 @@ export default function Rating({ value, count }) {
         return stars;
     };
 
+    // A product with no reviews says so, rather than showing an empty row of
+    // stars next to a review count it cannot back up.
+    if (!hasRating) {
+        return (
+            <div style={styles.container}>
+                <span style={styles.count}>No reviews yet</span>
+            </div>
+        );
+    }
+
     return (
         <div style={styles.container}>
             <div style={styles.stars}>
                 {renderStars(value)}
             </div>
-            {count && <span style={styles.count}>({count} reviews)</span>}
+            {count > 0 && (
+                <span style={styles.count}>
+                    ({count} {count === 1 ? 'review' : 'reviews'})
+                </span>
+            )}
         </div>
     );
 }

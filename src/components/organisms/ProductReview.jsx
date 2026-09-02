@@ -5,8 +5,9 @@ import ProductReview from '../molecules/ProductReview';
 
 export default function ProductReviews({ reviews, averageRating, totalReviews }) {
     const safeReviews = Array.isArray(reviews) ? reviews : [];
-    const safeAverageRating = typeof averageRating === 'number' && !isNaN(averageRating) ? averageRating : 0;
-    const safeTotalReviews = typeof totalReviews === 'number' && !isNaN(totalReviews) ? totalReviews : safeReviews.length;
+    const safeTotalReviews = safeReviews.length;
+    const safeAverageRating =
+        typeof averageRating === 'number' && !isNaN(averageRating) ? averageRating : 0;
 
     const [visibleReviews, setVisibleReviews] = useState(3);
 
@@ -15,6 +16,22 @@ export default function ProductReviews({ reviews, averageRating, totalReviews })
     };
 
     const displayedReviews = safeReviews.slice(0, visibleReviews);
+
+    if (safeTotalReviews === 0) {
+        return (
+            <div style={styles.container}>
+                <h3 style={styles.title}>Customer Reviews</h3>
+                <div style={styles.emptyState}>
+                    <p style={styles.emptyTitle}>No reviews for this product yet.</p>
+                    <p style={styles.emptyText}>
+                        Used this product? We would like to hear from you — reach us on
+                        WhatsApp or through the contact details below and we will add your
+                        feedback here.
+                    </p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div style={styles.container}>
@@ -55,7 +72,7 @@ export default function ProductReviews({ reviews, averageRating, totalReviews })
                     <ProductReview key={index} review={review} />
                 ))}
 
-                {visibleReviews < reviews.length && (
+                {visibleReviews < safeReviews.length && (
                     <button onClick={loadMoreReviews} style={styles.loadMoreButton}>
                         Load More Reviews
                     </button>
@@ -68,6 +85,22 @@ export default function ProductReviews({ reviews, averageRating, totalReviews })
 const styles = {
     container: {
         marginBottom: '40px',
+    },
+    emptyState: {
+        backgroundColor: '#f9f9f9',
+        padding: '24px',
+        borderRadius: '8px',
+    },
+    emptyTitle: {
+        margin: '0 0 8px 0',
+        fontWeight: 600,
+        color: '#333',
+    },
+    emptyText: {
+        margin: 0,
+        color: '#666',
+        fontSize: '0.95rem',
+        lineHeight: 1.6,
     },
     title: {
         fontSize: '1.5rem',

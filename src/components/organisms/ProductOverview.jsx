@@ -2,9 +2,11 @@
 import React, { useState } from 'react';
 import Badge from '../atoms/Badge';
 import Rating from '../atoms/Rating';
+import { getReviewSummary } from '../../lib/reviews';
 
 export default function ProductOverview({ product }) {
     const [quantity, setQuantity] = useState(1);
+    const { count: reviewCount, average: averageRating } = getReviewSummary(product);
 
     const handleQuantityChange = (e) => {
         const value = parseInt(e.target.value);
@@ -29,7 +31,7 @@ export default function ProductOverview({ product }) {
                 <h2 style={styles.title}>{product.name}</h2>
                 <div style={styles.meta}>
                     <div style={styles.rating}>
-                        <Rating value={product.rating} count={product.reviewCount} />
+                        <Rating value={averageRating} count={reviewCount} />
                     </div>
                     <div style={styles.sku}>SKU: {product.sku}</div>
                 </div>

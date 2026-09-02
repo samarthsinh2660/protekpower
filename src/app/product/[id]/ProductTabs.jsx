@@ -4,12 +4,14 @@ import ProductOverview from '../../../components/organisms/ProductOverview';
 import ProductSpecs from '../../../components/molecules/ProductSpecs';
 import WarrantyInfo from '../../../components/molecules/WarrantyInfo';
 import ProductReviews from '../../../components/organisms/ProductReview';
+import { getReviewSummary } from '../../../lib/reviews';
 
 // Only the tab switching needs to be interactive, so this is the one part of
 // the product page that runs on the client. The default tab renders on the
 // server, which keeps the product description in the initial HTML.
 export default function ProductTabs({ product }) {
     const [activeTab, setActiveTab] = useState('description');
+    const reviewSummary = getReviewSummary(product);
 
     const tabs = [
         { key: 'description', label: 'Description' },
@@ -42,9 +44,9 @@ export default function ProductTabs({ product }) {
                 )}
                 {activeTab === 'reviews' && (
                     <ProductReviews
-                        reviews={product.reviews || []}
-                        averageRating={product.averageRating}
-                        totalReviews={product.totalReviews}
+                        reviews={reviewSummary.reviews}
+                        averageRating={reviewSummary.average}
+                        totalReviews={reviewSummary.count}
                     />
                 )}
             </div>
