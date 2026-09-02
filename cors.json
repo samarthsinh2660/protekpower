@@ -1,7 +1,22 @@
 [
   {
-    "origin": ["http://localhost:3000", "https://localhost:3000"],
-    "method": ["GET", "POST", "PUT", "DELETE"],
+    "origin": [
+      "https://www.protekpower.com",
+      "https://protekpower.com",
+      "http://localhost:3000"
+    ],
+    "method": [
+      "GET",
+      "HEAD",
+      "PUT",
+      "POST"
+    ],
+    "responseHeader": [
+      "Content-Type",
+      "Authorization",
+      "Content-Length",
+      "x-goog-resumable"
+    ],
     "maxAgeSeconds": 3600
   }
 ]

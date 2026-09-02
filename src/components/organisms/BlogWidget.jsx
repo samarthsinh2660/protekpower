@@ -1,18 +1,44 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import BlogCard from '../molecules/BlogCard';
-import { defaultBlogs } from '../../app/data/blogPosts';
 import Link from 'next/link';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../../lib/firebase';
+import { sortPostsNewestFirst } from '../../lib/postDate';
 
 export default function BlogWidget() {
-    const [blogs, setBlogs] = useState(defaultBlogs);
+    // This used to render a hardcoded sample post plus anything under the
+    // localStorage key 'blogs', which nothing has ever written — the editor
+    // saves to Firestore. The homepage therefore advertised a post that did
+    // not exist, linking to /blog/1 and landing on "Blog not found".
+    const [blogs, setBlogs] = useState([]);
 
     useEffect(() => {
-        const stored = JSON.parse(localStorage.getItem('blogs'));
-        if (stored) setBlogs(stored);
+        let cancelled = false;
+
+        const fetchLatest = async () => {
+            try {
+                const snapshot = await getDocs(collection(db, 'posts'));
+                const posts = snapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    ...doc.data(),
+                }));
+                if (!cancelled) setBlogs(sortPostsNewestFirst(posts));
+            } catch (error) {
+                console.error('Error fetching blog posts:', error);
+            }
+        };
+
+        fetchLatest();
+        return () => {
+            cancelled = true;
+        };
     }, []);
 
-    const latestBlogs = blogs.slice(-3).reverse();
+    const latestBlogs = blogs.slice(0, 3);
+
+    // Nothing to show is better than advertising posts that are not there.
+    if (latestBlogs.length === 0) return null;
 
     return (
         <section style={styles.section}>

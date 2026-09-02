@@ -1,31 +1,67 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
-import { db, storage } from '../../../lib/firebase';
+import { db, storage, getAuthClient } from '../../../lib/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-
-const USERNAME = process.env.NEXT_PUBLIC_BLOG_USERNAME;
-const PASSWORD = process.env.NEXT_PUBLIC_BLOG_PASSWORD;
+import {
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+} from 'firebase/auth';
 
 export default function WriteBlog() {
   const router = useRouter();
-  const [auth, setAuth] = useState(false);
-  const [username, setUsername] = useState('');
+  const [user, setUser] = useState(null);
+  const [checkingAuth, setCheckingAuth] = useState(true);
+  const [signingIn, setSigningIn] = useState(false);
+  const [authError, setAuthError] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [heading, setHeading] = useState('');
   const [title, setTitle] = useState('');
   const [sections, setSections] = useState([]);
 
-  const login = () => {
-    if (username === USERNAME && password === PASSWORD) {
-      setAuth(true);
-    } else {
-      alert('Invalid credentials');
+  // The previous gate compared against NEXT_PUBLIC_ env vars, which Next
+  // inlines into the client bundle — the credentials were readable by anyone
+  // who opened the JS, and the check was a state flag anyone could flip in
+  // devtools. Identity now comes from Firebase Auth, and the Firestore rules
+  // are what actually decide whether a write is allowed.
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(getAuthClient(), (nextUser) => {
+      setUser(nextUser);
+      setCheckingAuth(false);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const login = async (event) => {
+    event?.preventDefault?.();
+    setAuthError('');
+    setSigningIn(true);
+    try {
+      await signInWithEmailAndPassword(getAuthClient(), email.trim(), password);
+      setPassword('');
+    } catch (error) {
+      // Firebase returns distinct codes, but they all mean the same thing to
+      // someone at a login box, and distinguishing them leaks which half was
+      // wrong.
+      const code = error?.code || '';
+      setAuthError(
+        code === 'auth/too-many-requests'
+          ? 'Too many attempts. Please wait a few minutes and try again.'
+          : 'Sign in failed. Check the email and password and try again.'
+      );
+    } finally {
+      setSigningIn(false);
     }
+  };
+
+  const logout = async () => {
+    await signOut(getAuthClient());
   };
 
   const addTextSection = () => setSections([...sections, { type: 'text', content: '' }]);
@@ -88,10 +124,16 @@ const handleImageUpload = async (idx, file) => {
 
   const saveBlog = async () => {
     try {
+      const now = new Date();
       const blogData = {
         heading,
         title,
-        date: new Date().toLocaleDateString(),
+        // toLocaleDateString() rendered in whatever locale the author's browser
+        // happened to use, which made posts unsortable and inconsistent.
+        // createdAt is the field to read; date stays for older posts.
+        createdAt: now.toISOString(),
+        date: now.toISOString(),
+        authorEmail: user.email,
         sections
       };
       console.log(blogData)
@@ -106,27 +148,43 @@ const handleImageUpload = async (idx, file) => {
     }
   };
 
-  if (!auth) {
+  if (checkingAuth) {
+    return (
+      <div style={styles.container}>
+        <div style={styles.card}>
+          <p>Checking sign in…</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
     return (
       <div style={styles.container}>
         <div style={styles.card}>
           <h2 style={styles.title}>📝 Admin Login</h2>
-          <input
-            style={styles.input}
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <input
-            style={styles.input}
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button style={styles.buttonPrimary} onClick={login}>
-            Login
-          </button>
+          <form onSubmit={login}>
+            <input
+              style={styles.input}
+              type="email"
+              autoComplete="username"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              style={styles.input}
+              type="password"
+              autoComplete="current-password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {authError && <p style={styles.authError}>{authError}</p>}
+            <button style={styles.buttonPrimary} type="submit" disabled={signingIn}>
+              {signingIn ? 'Signing in…' : 'Login'}
+            </button>
+          </form>
         </div>
       </div>
     );
@@ -135,6 +193,12 @@ const handleImageUpload = async (idx, file) => {
   return (
     <div style={styles.container}>
       <div style={styles.card}>
+        <div style={styles.signedInBar}>
+          <span style={styles.signedInAs}>Signed in as {user.email}</span>
+          <button style={styles.buttonSecondary} onClick={logout} type="button">
+            Sign out
+          </button>
+        </div>
         <h2 style={styles.title}>📝 Create New Blog</h2>
         
         <input
@@ -218,6 +282,30 @@ function TiptapEditor({ value, onChange }) {
 }
 
 const styles = {
+  authError: {
+    color: '#c0392b',
+    fontSize: '0.9rem',
+    margin: '0 0 10px 0',
+  },
+  signedInBar: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '16px',
+    gap: '12px',
+  },
+  signedInAs: {
+    color: '#666',
+    fontSize: '0.9rem',
+  },
+  buttonSecondary: {
+    background: 'none',
+    border: '1px solid #ccc',
+    borderRadius: '4px',
+    padding: '6px 12px',
+    cursor: 'pointer',
+    fontSize: '0.85rem',
+  },
   container: {
     maxWidth: '900px',
     margin: '60px auto',

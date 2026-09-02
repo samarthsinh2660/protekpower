@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import { sortPostsNewestFirst } from '../../lib/postDate';
 import BlogCard from '../../components/molecules/BlogCard';
 import { db } from '../../lib/firebase'; // Import db from your firebase.js file
 import { collection, getDocs } from 'firebase/firestore'; // Firestore functions to fetch data
@@ -16,7 +17,9 @@ export default function BlogPage() {
                     id: doc.id,  // Firebase automatically generates an ID for each document
                     ...doc.data(), // Spread the blog data into the object
                 }));
-                setBlogs(blogsList);  // Set the blogs state with the fetched data
+                // Firestore returns documents in ID order, which put the
+                // oldest post first on the page.
+                setBlogs(sortPostsNewestFirst(blogsList));
             } catch (error) {
                 console.error('Error fetching blogs:', error);
             } finally {

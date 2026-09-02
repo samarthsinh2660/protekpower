@@ -5,14 +5,14 @@ import Logo from '../atoms/Logo';
 export default function Footer() {
     const currentYear = new Date().getFullYear();
 
+    // Only routes that exist. Services, FAQs, Warranty, Careers, Privacy and
+    // Terms all returned 404 from every page on the site; add each back here
+    // as its page is built.
     const allLinks = [
         { label: 'About Us', url: '/about' },
         { label: 'Products', url: '/product' },
-        { label: 'Services', url: '/services' },
         { label: 'Contact', url: '/contact' },
-        { label: 'FAQs', url: '/faqs' },
-        { label: 'Warranty', url: '/warranty' },
-        { label: 'Careers', url: '/careers' },
+        { label: 'Blog', url: '/blog' },
     ];
 
     return (
@@ -54,11 +54,7 @@ export default function Footer() {
                     <div className="footer-copyright">
                         © {currentYear} Protek Power. All rights reserved.
                     </div>
-                    <div className="footer-legal-links">
-                        <a href="/privacy" className="footer-legal-link">Privacy</a>
-                        <span className="footer-legal-divider">•</span>
-                        <a href="/terms" className="footer-legal-link">Terms</a>
-                    </div>
+
                 </div>
             </div>
         </footer>

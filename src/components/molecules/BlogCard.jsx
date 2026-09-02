@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatPostDate } from '../../lib/postDate';
 import Link from 'next/link';
 
 // Helper function to strip HTML tags and get plain text (works on server and client)
@@ -51,7 +52,9 @@ export default function BlogCard({ blog }) {
             </div>
             <div style={styles.content}>
                 <h3 style={styles.title}>{blog.title || blog.heading || 'Untitled Blog'}</h3>
-                <p style={styles.date}>{blog.date || 'Date not available'}</p>
+                {formatPostDate(blog) && (
+                    <p style={styles.date}>{formatPostDate(blog)}</p>
+                )}
                 <p style={styles.snippet}>{snippet || 'No preview available'}...</p>
                 <Link href={`/blog/${blog.id}`} style={styles.readMore}>
                     Read More →

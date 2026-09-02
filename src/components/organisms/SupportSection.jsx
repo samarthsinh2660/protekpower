@@ -1,17 +1,7 @@
 import React from 'react';
+import Link from 'next/link';
+import { CONTACT, MAP_EMBED_URL } from '../../lib/contact';
 import ContactInfo from '../atoms/ContactInfo';
-
-// Office address, kept in one place so the map pin and the printed address
-// cannot drift apart. The previous embed was a saved view of "Ahmedabad,
-// Gujarat" — the whole city, not this building.
-const OFFICE_ADDRESS =
-    '67, Capital Commercial Center, Nr. Sanyas Ashram, Ashram Road, Ahmedabad - 380009, Gujarat, India';
-
-// Query-based embed: Google geocodes the address itself, so there are no
-// hardcoded coordinates to go stale.
-const MAP_EMBED_URL = `https://www.google.com/maps?q=${encodeURIComponent(
-    OFFICE_ADDRESS
-)}&z=17&output=embed`;
 
 export default function SupportSection() {
     return (
@@ -41,12 +31,12 @@ export default function SupportSection() {
                             <ContactInfo
                                 icon="📍"
                                 title="Address"
-                                value={OFFICE_ADDRESS}
+                                value={CONTACT.addressOneLine}
                             />
                         </div>
-                        <button className="support-button">
+                        <Link href="/contact" className="support-button">
                             Contact Us
-                        </button>
+                        </Link>
                     </div>
                     <div className="support-map-column">
                         <div className="support-map-container">

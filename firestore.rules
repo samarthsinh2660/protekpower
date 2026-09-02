@@ -1,0 +1,23 @@
+rules_version = '2';
+
+// Blog content is public to read and restricted to signed-in staff to change.
+//
+// This file is the real access control for the site. The editor at
+// /blog/writeBlog only decides what the UI shows; anyone can call the
+// Firestore API directly, so a rule that trusts the client is no rule at all.
+//
+// Deploy with:  firebase deploy --only firestore:rules
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /posts/{postId} {
+      allow read: if true;
+      allow create, update, delete: if request.auth != null;
+    }
+
+    // Anything not named above is closed.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
