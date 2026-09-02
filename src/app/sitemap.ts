@@ -4,7 +4,43 @@ import { productCategories } from "./data/productCategories";
 
 const SITE_URL = "https://www.protekpower.com";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+// Blog posts live in Firestore and the listing that links to them renders in
+// the browser, so a crawler following links never reaches a post. Listing the
+// collection here is what makes them discoverable.
+async function fetchPostEntries(): Promise<MetadataRoute.Sitemap> {
+  const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
+  const apiKey = process.env.NEXT_PUBLIC_FIREBASE_API_KEY;
+  if (!projectId || !apiKey) return [];
+
+  const url =
+    `https://firestore.googleapis.com/v1/projects/${projectId}` +
+    `/databases/(default)/documents/posts?key=${apiKey}&pageSize=300`;
+
+  try {
+    const res = await fetch(url, { next: { revalidate: 3600 } });
+    if (!res.ok) return [];
+    const data = await res.json();
+    const documents: Array<{ name?: string; updateTime?: string }> =
+      data?.documents ?? [];
+
+    return documents.flatMap((doc) => {
+      const id = doc.name?.split("/").pop();
+      if (!id) return [];
+      return [
+        {
+          url: `${SITE_URL}/blog/${id}`,
+          lastModified: doc.updateTime ? new Date(doc.updateTime) : new Date(),
+          changeFrequency: "monthly" as const,
+          priority: 0.5,
+        },
+      ];
+    });
+  } catch {
+    return [];
+  }
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -35,5 +71,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   );
 
-  return [...staticRoutes, ...categoryRoutes, ...productRoutes];
+  const postRoutes = await fetchPostEntries();
+
+  return [...staticRoutes, ...categoryRoutes, ...productRoutes, ...postRoutes];
 }

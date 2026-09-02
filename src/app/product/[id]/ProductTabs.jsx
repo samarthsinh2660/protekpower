@@ -46,7 +46,6 @@ export default function ProductTabs({ product }) {
                     <ProductReviews
                         reviews={reviewSummary.reviews}
                         averageRating={reviewSummary.average}
-                        totalReviews={reviewSummary.count}
                     />
                 )}
             </div>

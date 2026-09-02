@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Rating from '../atoms/Rating';
 import ProductReview from '../molecules/ProductReview';
 
-export default function ProductReviews({ reviews, averageRating, totalReviews }) {
+export default function ProductReviews({ reviews, averageRating }) {
     const safeReviews = Array.isArray(reviews) ? reviews : [];
     const safeTotalReviews = safeReviews.length;
     const safeAverageRating =
