@@ -91,8 +91,14 @@ const organizationSchema = {
     "Manufacturer of servo voltage stabilizers, digital stabilizers, constant voltage transformers, isolation transformers, UPS systems and battery chargers for industrial and commercial applications.",
   address: {
     "@type": "PostalAddress",
+    streetAddress: "67, Capital Commercial Center, Nr. Sanyas Ashram, Ashram Road",
+    addressLocality: "Ahmedabad",
+    addressRegion: "Gujarat",
+    postalCode: "380009",
     addressCountry: "IN",
   },
+  email: "swastik23@gmail.com",
+  telephone: "+91-9824035667",
   contactPoint: {
     "@type": "ContactPoint",
     telephone: "+91-9426067762",

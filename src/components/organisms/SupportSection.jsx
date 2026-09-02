@@ -1,6 +1,18 @@
 import React from 'react';
 import ContactInfo from '../atoms/ContactInfo';
 
+// Office address, kept in one place so the map pin and the printed address
+// cannot drift apart. The previous embed was a saved view of "Ahmedabad,
+// Gujarat" — the whole city, not this building.
+const OFFICE_ADDRESS =
+    '67, Capital Commercial Center, Nr. Sanyas Ashram, Ashram Road, Ahmedabad - 380009, Gujarat, India';
+
+// Query-based embed: Google geocodes the address itself, so there are no
+// hardcoded coordinates to go stale.
+const MAP_EMBED_URL = `https://www.google.com/maps?q=${encodeURIComponent(
+    OFFICE_ADDRESS
+)}&z=17&output=embed`;
+
 export default function SupportSection() {
     return (
         <section className="support-section">
@@ -29,7 +41,7 @@ export default function SupportSection() {
                             <ContactInfo
                                 icon="📍"
                                 title="Address"
-                                value="67, Capital Commercial Center, Nr, Sanyas ashram, Ashram Road, Ahmedabad - 9 (Guj.)"
+                                value={OFFICE_ADDRESS}
                             />
                         </div>
                         <button className="support-button">
@@ -39,10 +51,11 @@ export default function SupportSection() {
                     <div className="support-map-column">
                         <div className="support-map-container">
                             <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d235013.70717844018!2d72.43965358671871!3d23.02049777318322!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e848aba5bd449%3A0x4fcedd11614f6516!2sAhmedabad%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1709538273842!5m2!1sen!2sin"
+                                src={MAP_EMBED_URL}
                                 className="support-map"
                                 loading="lazy"
-                                title="Protek Power Location"
+                                referrerPolicy="no-referrer-when-downgrade"
+                                title="Protek Power office location on Google Maps"
                                 allowFullScreen=""
                             ></iframe>
                         </div>
