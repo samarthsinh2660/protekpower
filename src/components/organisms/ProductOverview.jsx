@@ -26,7 +26,7 @@ export default function ProductOverview({ product }) {
                     {product.isBestseller && <Badge type="bestseller" text="Bestseller" />}
                     {product.isOnSale && <Badge type="sale" text="Sale" />}
                 </div>
-                <h1 style={styles.title}>{product.name}</h1>
+                <h2 style={styles.title}>{product.name}</h2>
                 <div style={styles.meta}>
                     <div style={styles.rating}>
                         <Rating value={product.rating} count={product.reviewCount} />

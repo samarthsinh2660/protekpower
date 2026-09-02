@@ -1,39 +1,32 @@
-'use client';
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
+import React from 'react';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import ProductGallery from '../../../components/molecules/ProductGallery';
-import ProductOverview from '../../../components/organisms/ProductOverview';
-import ProductSpecs from '../../../components/molecules/ProductSpecs';
-import WarrantyInfo from '../../../components/molecules/WarrantyInfo';
-import ProductReviews from '../../../components/organisms/ProductReview';
 import RelatedProducts from '../../../components/organisms/RelatedProducts';
-import { products } from '../../data/products';
 import Whatsapp from '../../../components/molecules/Whatsapp';
+import ProductTabs from './ProductTabs';
+import { products } from '../../data/products';
+import { productCategories } from '../../data/productCategories';
 
-export default function ProductDetail() {
-    const { id } = useParams();
-    const [product, setProduct] = useState(null);
-    const [relatedProducts, setRelatedProducts] = useState([]);
-    const [activeTab, setActiveTab] = useState('description');
+// Resolved on the server, so the product name, description, gallery and
+// related products are all present in the HTML. Previously the lookup ran in
+// a useEffect, which meant the served markup said "Product not found" for
+// every product and returned HTTP 200 for ones that do not exist.
+export default async function ProductDetail({ params }) {
+    const { id } = await params;
 
-    useEffect(() => {
-        // Find the product by id or slug
-        const foundProduct = products.find(p => p.id === id || p.slug === id);
+    const product = products.find((p) => p.id === id || p.slug === id);
+    if (!product) notFound();
 
-        if (foundProduct) {
-            setProduct(foundProduct);
-            // Find related products (same category, excluding current product)
-            const related = products
-                .filter(p => p.category === foundProduct.category && p.id !== foundProduct.id)
-                .slice(0, 4);
-            setRelatedProducts(related);
-        }
-    }, [id]);
+    const relatedProducts = products
+        .filter((p) => p.category === product.category && p.id !== product.id)
+        .slice(0, 4);
 
-    if (!product) {
-        return <div className="product-not-found">Product not found</div>;
-    }
+    // The category filter matches on slug, so look up the real slug rather
+    // than lowercasing the display name (which never matched).
+    const categorySlug = productCategories.find(
+        (cat) => cat.name.toLowerCase() === product.category.toLowerCase()
+    )?.slug;
 
     return (
         <>
@@ -43,7 +36,10 @@ export default function ProductDetail() {
                     <span className="breadcrumb-separator">›</span>
                     <Link href="/product" className="breadcrumb-link">Products</Link>
                     <span className="breadcrumb-separator">›</span>
-                    <Link href={`/product?category=${product.category.toLowerCase()}`} className="breadcrumb-link">
+                    <Link
+                        href={categorySlug ? `/product?category=${categorySlug}` : '/product'}
+                        className="breadcrumb-link"
+                    >
                         {product.category}
                     </Link>
                     <span className="breadcrumb-separator">›</span>
@@ -59,39 +55,7 @@ export default function ProductDetail() {
                             <p className="product-category">{product.category}</p>
                             <p className="product-description">{product.description}</p>
 
-                            <div className="tabs-header">
-                                <button
-                                    onClick={() => setActiveTab('description')}
-                                    className={`tab-button ${activeTab === 'description' ? 'active-tab' : ''}`}
-                                >
-                                    Description
-                                </button>
-                                <button
-                                    onClick={() => setActiveTab('specifications')}
-                                    className={`tab-button ${activeTab === 'specifications' ? 'active-tab' : ''}`}
-                                >
-                                    Specifications
-                                </button>
-                                <button
-                                    onClick={() => setActiveTab('warranty')}
-                                    className={`tab-button ${activeTab === 'warranty' ? 'active-tab' : ''}`}
-                                >
-                                    Warranty
-                                </button>
-                                <button
-                                    onClick={() => setActiveTab('reviews')}
-                                    className={`tab-button ${activeTab === 'reviews' ? 'active-tab' : ''}`}
-                                >
-                                    Reviews
-                                </button>
-                            </div>
-
-                            <div className="tab-content">
-                                {activeTab === 'description' && <ProductOverview product={product} />}
-                                {activeTab === 'specifications' && <ProductSpecs specifications={product.specifications || {}} />}
-                                {activeTab === 'warranty' && <WarrantyInfo warranty={product.warranty || "1 Year"} />}
-                                {activeTab === 'reviews' && <ProductReviews reviews={product.reviews || []} averageRating={product.averageRating} totalReviews={product.totalReviews} />}
-                            </div>
+                            <ProductTabs product={product} />
                         </div>
                     </div>
                 </div>

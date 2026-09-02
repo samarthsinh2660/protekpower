@@ -102,11 +102,26 @@ export default async function ProductDetailLayout({ children, params }) {
         ...(offer ? { offers: offer } : {}),
     };
 
+    const breadcrumbSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+            { '@type': 'ListItem', position: 2, name: 'Products', item: `${SITE_URL}/product` },
+            { '@type': 'ListItem', position: 3, name: product.category },
+            { '@type': 'ListItem', position: 4, name: product.name, item: `${SITE_URL}/product/${product.slug}` },
+        ],
+    };
+
     return (
         <>
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
             />
             {children}
         </>

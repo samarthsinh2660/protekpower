@@ -1,57 +1,28 @@
-'use client';
-import React, { useState, useEffect, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import React from 'react';
+import Link from 'next/link';
 import TopProductCard from "../../components/atoms/TopProductCard";
 import { products } from "../data/allproducts";
 import { productCategories } from "../data/productCategories";
 import Whatsapp from "../../components/molecules/Whatsapp";
 
-function ProductsContent() {
-    const searchParams = useSearchParams();
-    const categoryParam = searchParams.get('category');
-    const [filteredProducts, setFilteredProducts] = useState(products);
-    const [activeCategory, setActiveCategory] = useState('all');
+// Rendered on the server so the catalogue is present in the HTML. The category
+// filter is driven by the ?category= query string rather than client state,
+// which also makes each filtered view a real, crawlable URL.
+export default async function Products({ searchParams }) {
+    const { category: categoryParam } = await searchParams;
 
-    // Filter products when component mounts or when URL parameters change
-    useEffect(() => {
-        if (categoryParam) {
-            const category = productCategories.find(cat => cat.slug === categoryParam);
-            if (category) {
-                filterByCategory(category.name);
-                setActiveCategory(category.slug);
-                return;
-            }
-        }
+    const activeCategoryObj = categoryParam
+        ? productCategories.find((cat) => cat.slug === categoryParam)
+        : null;
+    const activeCategory = activeCategoryObj ? activeCategoryObj.slug : 'all';
 
-        // If no valid category param, show all products
-        setFilteredProducts(products);
-        setActiveCategory('all');
-    }, [categoryParam]);
-
-    // Function to filter products by category
-    const filterByCategory = (categoryName) => {
-        const filtered = products.filter(product =>
-            product.category.toLowerCase() === categoryName.toLowerCase()
-        );
-
-        setFilteredProducts(filtered);
-
-    };
-
-    // Handle category filter click
-    const handleCategoryClick = (category) => {
-        if (category === 'all') {
-            setFilteredProducts(products);
-            setActiveCategory('all');
-        } else {
-            const categoryObj = productCategories.find(cat => cat.slug === category);
-            if (categoryObj) {
-                filterByCategory(categoryObj.name);
-                setActiveCategory(category);
-                console.log(activeCategory);
-            }
-        }
-    };
+    const filteredProducts = activeCategoryObj
+        ? products.filter(
+              (product) =>
+                  product.category.toLowerCase() ===
+                  activeCategoryObj.name.toLowerCase()
+          )
+        : products;
 
     return (
         <>
@@ -66,27 +37,27 @@ function ProductsContent() {
 
             <main style={styles.main}>
                 <div style={styles.categoryFilter}>
-                    <button
-                        onClick={() => handleCategoryClick('all')}
+                    <Link
+                        href="/product"
                         style={{
                             ...styles.categoryButton,
                             ...(activeCategory === 'all' ? styles.activeCategory : {})
                         }}
                     >
                         All Products
-                    </button>
+                    </Link>
 
                     {productCategories.map(category => (
-                        <button
+                        <Link
                             key={category.id}
-                            onClick={() => handleCategoryClick(category.slug)}
+                            href={`/product?category=${category.slug}`}
                             style={{
                                 ...styles.categoryButton,
                                 ...(activeCategory === category.slug ? styles.activeCategory : {})
                             }}
                         >
                             {category.name}
-                        </button>
+                        </Link>
                     ))}
                 </div>
 
@@ -114,12 +85,9 @@ function ProductsContent() {
                 ) : (
                     <div style={styles.noProducts}>
                         <p>No products found in this category.</p>
-                        <button
-                            onClick={() => handleCategoryClick('all')}
-                            style={styles.resetButton}
-                        >
+                        <Link href="/product" style={styles.resetButton}>
                             View All Products
-                        </button>
+                        </Link>
                     </div>
                 )}
             </main>
@@ -130,14 +98,6 @@ function ProductsContent() {
                     position="bottom-right"
                   />
         </>
-    );
-}
-
-export default function Products() {
-    return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <ProductsContent />
-        </Suspense>
     );
 }
 
@@ -182,6 +142,10 @@ const styles = {
         fontSize: '0.9rem',
         transition: 'all 0.2s ease',
         color: '#333',
+        // these are links now, so they need the button's look
+        textDecoration: 'none',
+        display: 'inline-block',
+        lineHeight: 'normal',
     },
     activeCategory: {
         backgroundColor: '#0066cc',
@@ -216,5 +180,7 @@ const styles = {
         cursor: 'pointer',
         marginTop: '15px',
         transition: 'background-color 0.2s ease',
+        textDecoration: 'none',
+        display: 'inline-block',
     }
 };
