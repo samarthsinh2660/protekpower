@@ -281,7 +281,7 @@ export const products = [
   
     id: 's5',
     name: 'Jindal Automatic Voltage Controller (AVC)',
-    price: "Upon Request", // Add when available
+    price: "200000",
     image: '/assets/images/ServoVoltageStabilizer/JindalAVC.png',
     category: 'Servo Voltage Stabilizer',
     slug: 'jindal-avc',

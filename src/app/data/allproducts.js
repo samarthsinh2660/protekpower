@@ -39,7 +39,7 @@ export const products = [
     {
     id: 's5',
     name: 'Jindal AVC',
-    price: "Upon Request",
+    price: 200000,
     image: '/assets/images/ServoVoltageStabilizer/JindalAVC.png',
     category: 'Servo Voltage Stabilizer',
     slug: 'jindal-avc',
