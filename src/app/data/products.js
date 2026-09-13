@@ -200,7 +200,7 @@ export const products = [
    {
     id: 's4',
     name: 'Oil-Cooled Three Phase Servo Stabilizer',
-    price: "50000 (Starts from)", // Add price when available
+    price: "50000 (Starts from)",
     image: '/assets/images/ServoVoltageStabilizer/OilCooled.png',
     category: 'Servo Voltage Stabilizer',
     slug: 'three-phase-servo-stabilizer-oil-cooled',
